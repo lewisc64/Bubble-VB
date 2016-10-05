@@ -23,7 +23,7 @@
 
     End Sub
 
-    Public Overrides Sub draw(Display As VBGame.Display)
+    Public Shadows Sub draw(Display As Object)
         'Display.drawCircle(New VBGame.Circle(getCenter(), radius), color)
         Display.blit(image, getRect())
     End Sub

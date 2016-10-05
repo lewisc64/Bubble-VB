@@ -21,7 +21,7 @@
         Next
     End Sub
 
-    Public Sub draw(display As VBGame.Display)
+    Public Sub draw(display As Object)
         For x As Integer = 0 To width - 1
             For y As Integer = 0 To height - 1
                 If Not IsNothing(bubbles(x, y).bubble) Then

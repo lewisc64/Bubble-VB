@@ -17,6 +17,7 @@ Public Class Form1
         Bubble.images.Add(VBGame.Images.load("assets/images/bubbles/yellow.png"))
         Bubble.images.Add(VBGame.Images.load("assets/images/bubbles/purple.png"))
         Bubble.images.Add(VBGame.Images.load("assets/images/bubbles/blue.png"))
+        Bubble.images.Add(VBGame.Images.load("assets/images/bubbles/green.png"))
 
         VBGame.Assets.images.Add("bg", VBGame.Images.load("assets/images/bg.png"))
         VBGame.Assets.images.Add("sidebar", VBGame.Images.load("assets/images/sidebar.png"))
@@ -33,11 +34,21 @@ Public Class Form1
         background.blit(VBGame.Assets.images("bg"), New Point(0, 0))
         background.blit(VBGame.Assets.images("sidebar"), New Point(585, 0))
 
+        grid.draw(background)
+
+        Dim frames As Integer = 0
+
         While True
 
-            background.update()
+            frames += 1
 
-            grid.draw(display)
+            If frames Mod 60 = 0 Then
+                background.blit(VBGame.Assets.images("bg"), New Point(0, 0))
+                background.blit(VBGame.Assets.images("sidebar"), New Point(585, 0))
+                grid.draw(background)
+            End If
+
+            background.update()
 
             display.drawText(New Point(0, 0), display.getTime(), VBGame.Colors.green)
             display.update()
