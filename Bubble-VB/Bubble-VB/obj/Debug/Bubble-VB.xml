@@ -6,7 +6,12 @@ Bubble-VB
 </name>
 </assembly>
 <members>
-<member name="M:Bubble_VB.VBGame.Images.save(System.Drawing.Bitmap,System.String,System.Drawing.Imaging.ImageFormat)">
+<member name="T:Bubble_VB.VBGame.Assets">
+	<summary>
+ A suggested way to organise assets.
+ </summary>
+	<remarks></remarks>
+</member><member name="M:Bubble_VB.VBGame.Images.save(System.Drawing.Bitmap,System.String,System.Drawing.Imaging.ImageFormat)">
 	<summary>
  Saves image to a file
  </summary>

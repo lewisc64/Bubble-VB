@@ -10,6 +10,18 @@ Imports System.Reflection
 
 Namespace VBGame
 
+    ''' <summary>
+    ''' A suggested way to organise assets.
+    ''' </summary>
+    ''' <remarks></remarks>
+    Public Class Assets
+
+        Public Shared images As New Dictionary(Of String, Image)
+        Public Shared sounds As New Dictionary(Of String, Sound)
+        Public Shared animations As New Dictionary(Of String, Animation)
+
+    End Class
+
     Public Class Colors
 
         Public Shared white As Color = Color.FromArgb(255, 255, 255)
