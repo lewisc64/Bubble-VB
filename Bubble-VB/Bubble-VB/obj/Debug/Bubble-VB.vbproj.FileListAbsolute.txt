@@ -1,0 +1,10 @@
+E:\coding\GitHub\Bubble-VB\Bubble-VB\Bubble-VB\bin\Debug\Bubble-VB.exe.config
+E:\coding\GitHub\Bubble-VB\Bubble-VB\Bubble-VB\bin\Debug\Bubble-VB.exe
+E:\coding\GitHub\Bubble-VB\Bubble-VB\Bubble-VB\bin\Debug\Bubble-VB.pdb
+E:\coding\GitHub\Bubble-VB\Bubble-VB\Bubble-VB\bin\Debug\Bubble-VB.xml
+E:\coding\GitHub\Bubble-VB\Bubble-VB\Bubble-VB\obj\Debug\Bubble_VB.Form1.resources
+E:\coding\GitHub\Bubble-VB\Bubble-VB\Bubble-VB\obj\Debug\Bubble_VB.Resources.resources
+E:\coding\GitHub\Bubble-VB\Bubble-VB\Bubble-VB\obj\Debug\Bubble-VB.vbproj.GenerateResource.Cache
+E:\coding\GitHub\Bubble-VB\Bubble-VB\Bubble-VB\obj\Debug\Bubble-VB.exe
+E:\coding\GitHub\Bubble-VB\Bubble-VB\Bubble-VB\obj\Debug\Bubble-VB.xml
+E:\coding\GitHub\Bubble-VB\Bubble-VB\Bubble-VB\obj\Debug\Bubble-VB.pdb
