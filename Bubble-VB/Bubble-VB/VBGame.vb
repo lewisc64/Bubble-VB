@@ -264,8 +264,9 @@ Namespace VBGame
         End Function
 
         Public Shared Function circle(c1 As Circle, c2 As Circle) As Boolean
-            Dim ds As Double = Math.Pow(c1.x - c2.x, 2) + Math.Pow(c1.y - c2.y, 2)
-            Return (ds < Math.Pow(c1.radius, 2) OrElse ds < Math.Pow(c2.radius, 2))
+            'Dim ds As Double = Math.Pow(c1.x - c2.x, 2) + Math.Pow(c1.y - c2.y, 2)
+            'Return (ds < Math.Pow(c1.radius, 2) OrElse ds < Math.Pow(c2.radius, 2))
+            Return Math.Pow(c1.x - c2.x, 2) + Math.Pow(c1.y - c2.y, 2) < Math.Pow(c1.radius + c2.radius, 2)
         End Function
 
         Public Shared Function circleToRect(circle As Circle) As Rectangle
@@ -440,9 +441,7 @@ Namespace VBGame
         ''' <param name="rect"></param>
         ''' <remarks></remarks>
         Sub blit(image As Image, rect As Rectangle)
-            If Not IsNothing(image) Then
-                displaybuffer.Graphics.DrawImage(image, shiftRect(rect), -0.5, -0.5, image.Width, image.Height, GraphicsUnit.Pixel)
-            End If
+            displaybuffer.Graphics.DrawImage(image, shiftRect(rect), -0.5, -0.5, image.Width, image.Height, GraphicsUnit.Pixel)
         End Sub
 
         ''' <summary>
@@ -452,9 +451,17 @@ Namespace VBGame
         ''' <param name="point"></param>
         ''' <remarks></remarks>
         Sub blit(image As Image, point As Point)
-            If Not IsNothing(image) Then
-                displaybuffer.Graphics.DrawImageUnscaled(image, shiftPoint(point))
-            End If
+            displaybuffer.Graphics.DrawImageUnscaled(image, shiftPoint(point))
+        End Sub
+
+        ''' <summary>
+        ''' Blits an unscaled image centering on the point.
+        ''' </summary>
+        ''' <param name="image"></param>
+        ''' <param name="point"></param>
+        ''' <remarks></remarks>
+        Sub blitCentered(image As Image, point As Point)
+            displaybuffer.Graphics.DrawImageUnscaled(image, shiftPoint(New Point(CInt(point.X - (image.Width / 2)), CInt(point.Y - (image.Height / 2)))))
         End Sub
 
         ''' <summary>

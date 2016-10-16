@@ -64,6 +64,13 @@ Bubble-VB
 	<param name="image"></param>
 	<param name="point"></param>
 	<remarks></remarks>
+</member><member name="M:Bubble_VB.VBGame.DrawBase.blitCentered(System.Drawing.Image,System.Drawing.Point)">
+	<summary>
+ Blits an unscaled image centering on the point.
+ </summary>
+	<param name="image"></param>
+	<param name="point"></param>
+	<remarks></remarks>
 </member><member name="M:Bubble_VB.VBGame.DrawBase.blitCentered(System.Drawing.Image,System.Drawing.Rectangle)">
 	<summary>
  Blits an unscaled image centering on the rectangle.
