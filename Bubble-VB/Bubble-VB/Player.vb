@@ -27,7 +27,11 @@
         Dim brush As New SolidBrush(color)
         display.displaybuffer.Graphics.FillPolygon(brush, {New Point(x - 5, y), New Point(x + 5, y), New Point(move.X, move.Y)})
         brush.Dispose()
-        queue(0).draw(display)
+        Dim xmod As Integer = 0
+        For Each Bubble As Bubble In queue
+            display.blitCentered(Bubble.scaledImage, New Point(x + xmod, y))
+            xmod += Bubble.radius * 2
+        Next
     End Sub
 
     Public Sub clampAngle()
@@ -48,18 +52,22 @@
 
     Public Sub populateQueue()
         While queue.Count < 3
-            queue.Add(New Bubble(x - radius, y - radius, 0, radius))
+            addToQueue()
         End While
     End Sub
 
-    Public Sub handleMouseControls(e As VBGame.MouseEvent, bubbles As List(Of Bubble))
+    Public Sub addToQueue()
+        queue.Add(New Bubble(x - radius, y - radius, 0, radius))
+    End Sub
+
+    Public Sub handleMouseControls(e As VBGame.MouseEvent, bubbles As List(Of Bubble), updateList As List(Of Cell))
         angle = Math.Atan2(y - e.location.Y, x - e.location.X) * (180 / Math.PI) + 180
         clampAngle()
 
-        If ready AndAlso e.action = VBGame.MouseEvent.actions.down Then
+        If ready AndAlso e.action = VBGame.MouseEvent.actions.down AndAlso e.button = VBGame.MouseEvent.buttons.left AndAlso updateList.Count = 0 Then
             shoot(bubbles)
             ready = False
-            populateQueue()
+            'populateQueue()
         End If
     End Sub
 

@@ -7,6 +7,7 @@ Imports System.Threading
 Imports System.Text.RegularExpressions
 Imports System.Drawing.Drawing2D
 Imports System.Reflection
+Imports System.Xml.Serialization
 
 Namespace VBGame
 
@@ -1646,6 +1647,24 @@ Namespace VBGame
 
             Return bitmap
         End Function
+
+    End Class
+
+    Public Class XMLIO
+
+        Public Shared Sub Write(path As String, obj As Object)
+            Dim writer As New StreamWriter(path)
+            Dim x As New XmlSerializer(obj.GetType())
+            x.Serialize(writer, obj)
+            writer.Close()
+        End Sub
+
+        Public Shared Sub Read(path As String, ByRef obj As Object)
+            Dim reader As New StreamReader(path)
+            Dim x As New XmlSerializer(obj.GetType())
+            obj = x.Deserialize(reader)
+            reader.Close()
+        End Sub
 
     End Class
 

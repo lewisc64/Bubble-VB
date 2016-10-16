@@ -13,9 +13,14 @@
 
     Private Shared random As New Random()
 
+    Public popped As Boolean
+
+    Public scale As Single = 4 / 5
+    Private oscale As Single = 4 / 5
+
     Public Sub New(x As Integer, y As Integer, angle As Integer, radius As Integer)
         Me.radius = radius
-        realRadius = radius * (4 / 5)
+        realRadius = radius * scale
         Me.x = x
         Me.y = y
         Me.angle = angle
@@ -26,28 +31,33 @@
         image = images(c)
         color = color.FromArgb(c)
         speed = 10
-        scaledImage = VBGame.Images.resizeImage(image, 4 / 5, False)
+        scaledImage = VBGame.Images.resizeImage(image, scale, False)
     End Sub
 
     Public Shadows Sub draw(Display As VBGame.Display)
         'Display.drawCircle(New VBGame.Circle(getCenter(), realRadius), VBGame.Colors.black)
-        Display.blitCentered(scaledImage, getCenter())
-        'If radius = 15 Then
-        '    Display.blit(image, getXY())
-        'Else
-        '    Display.blit(image, getRect())
-        'End If
+        If scale = oscale Then
+            Display.blitCentered(scaledImage, getCenter())
+        Else
+            Display.blitCentered(VBGame.Images.resizeImage(scaledImage, scale, False), getCenter())
+        End If
+
     End Sub
 
-    Public Function handle(ByRef grid As Grid)
+    Public Function handle(ByRef grid As Grid, player As Player)
         move(True)
         If keepInBounds(New Rectangle(New Point(0, 0), grid.bounds), True, True) Then
             VBGame.Assets.sounds("bounce").play(False, True)
+            If y = 0 Then
+                grid.snapBubble(Me, player)
+                VBGame.Assets.sounds("snap").play(False, True)
+                Return True
+            End If
         End If
         For Each Cell As Cell In grid.exposed
             If VBGame.Collisions.rect(getRect(), Cell.Bubble.getRect()) Then
                 If VBGame.Collisions.circle(New VBGame.Circle(getCenter(), realRadius), New VBGame.Circle(Cell.Bubble.getCenter(), Cell.Bubble.realRadius)) Then
-                    grid.snapBubble(Me)
+                    grid.snapBubble(Me, player)
                     VBGame.Assets.sounds("snap").play(False, True)
                     Return True
                 End If
