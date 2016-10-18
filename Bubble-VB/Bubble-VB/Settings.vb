@@ -58,7 +58,13 @@
         MsgBox("Game Over." & vbCrLf & "Score: " & CStr(grid.score))
 
         If highscore Then
-            pscore = New Score(InputBox("New Highscore!" & vbCrLf & "Enter name:"), grid.score, grid.won)
+            pscore = New Score()
+            While IsNothing(pscore.name) OrElse pscore.name.Count > 6
+                pscore = New Score(InputBox("New Highscore!" & vbCrLf & "Enter name:"), grid.score, grid.won)
+                If pscore.name.Count > 6 Then
+                    MsgBox("Name is maximum of 6 characters.")
+                End If
+            End While
             If pscore.name <> "" Then
                 insertScore(pscore)
             End If

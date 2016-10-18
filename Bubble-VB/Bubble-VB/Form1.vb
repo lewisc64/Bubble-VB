@@ -27,6 +27,7 @@ Public Class Form1
         Bubble.images.Add(VBGame.Images.load("assets/images/bubbles/purple.png"))
         Bubble.images.Add(VBGame.Images.load("assets/images/bubbles/blue.png"))
         Bubble.images.Add(VBGame.Images.load("assets/images/bubbles/green.png"))
+        Bubble.images.Add(VBGame.Images.load("assets/images/bubbles/cyan.png"))
 
         VBGame.Assets.sounds.Add("shoot", New VBGame.Sound("assets/sounds/shoot.mp3"))
         VBGame.Assets.sounds.Add("pop", New VBGame.Sound("assets/sounds/pop.mp3"))
@@ -155,12 +156,12 @@ Public Class Form1
                     Return grid
                 End If
 
-                If e.button = VBGame.MouseEvent.buttons.right And e.action = VBGame.MouseEvent.actions.up Then
-                    For Each Cell As Cell In grid.bubbles
-                        Cell.Bubble = Nothing
-                    Next
-                    grid.update()
-                End If
+                'If e.button = VBGame.MouseEvent.buttons.right And e.action = VBGame.MouseEvent.actions.up Then
+                '    For Each Cell As Cell In grid.bubbles
+                '        Cell.Bubble = Nothing
+                '    Next
+                '    grid.update()
+                'End If
 
             Next
 

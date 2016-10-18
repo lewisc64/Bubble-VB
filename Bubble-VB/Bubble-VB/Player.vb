@@ -8,6 +8,8 @@
     Private angleMin As Integer = 185
     Private angleMax As Integer = 355
 
+    Public maxQueue As Integer = 5
+
     Public radius As Integer
 
     Public Sub New(bounds As Size, radius As Integer)
@@ -51,7 +53,7 @@
     End Sub
 
     Public Sub populateQueue()
-        While queue.Count < 3
+        While queue.Count < maxQueue
             addToQueue()
         End While
     End Sub
