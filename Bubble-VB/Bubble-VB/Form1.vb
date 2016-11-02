@@ -133,7 +133,7 @@ Public Class Form1
     End Function
 
     Public Function createGrid() As Grid
-        Return New Grid(New Size(display.width / 40 - 1, 22), settings.radius, 0)
+        Return New Grid(New Size(display.width / 40 - 1, 22), settings.radius, 0, New List(Of Integer) From {0, 1, 2, 3, 4, 5})
     End Function
 
     Public Function gameloop() As Grid
@@ -144,7 +144,7 @@ Public Class Form1
 
         Dim frames As Integer = 0
 
-        Dim player As New Player(New Size(585, display.height), settings.radius)
+        Dim player As New Player(New Size(585, display.height), settings.radius, grid.colorsPresent)
 
         Dim background As VBGame.Surface = getBackground()
 
@@ -189,6 +189,17 @@ Public Class Form1
                 '    Next
                 '    grid.update()
                 'End If
+
+                If e.button = VBGame.MouseEvent.buttons.right And e.action = VBGame.MouseEvent.actions.up Then
+                    For Each Cell As Cell In grid.bubbles
+                        If Cell.hasBubble Then
+                            If Cell.Bubble.color = 0 Then
+                                Cell.pop(grid)
+                            End If
+                        End If
+                    Next
+                    grid.update()
+                End If
 
             Next
 
@@ -235,7 +246,7 @@ Public Class Form1
 
             If player.queue.Count = 0 AndAlso bubbles.Count = 0 Then
                 rowsToAdd = 1
-                player.populateQueue()
+                player.populateQueue(grid.colorsPresent)
             End If
 
             If grid.lost Then
@@ -243,6 +254,7 @@ Public Class Form1
             End If
 
             If grid.exposed.Count = 0 AndAlso frames > 10 Then
+                grid.colorsPresent = New List(Of Integer) From {0, 1, 2, 3, 4, 5}
                 VBGame.Assets.sounds("victory").play()
                 settings.gamesWon += 1
                 settings.Save()

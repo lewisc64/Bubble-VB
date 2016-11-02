@@ -12,12 +12,12 @@ Public Class Player
     Private angleMin As Integer = 185
     Private angleMax As Integer = 355
 
-    Public maxQueue As Integer = 3
+    Public maxQueue As Integer = 5
 
     Public radius As Integer
     Private Shared random As New Random
 
-    Public Sub New(bounds As Size, radius As Integer)
+    Public Sub New(bounds As Size, radius As Integer, availableColors As List(Of Integer))
         Me.radius = radius
         x = bounds.Width / 2
         y = bounds.Height * (39 / 40)
@@ -25,7 +25,7 @@ Public Class Player
         height = 0
         angle = 270
         speed = 40
-        populateQueue()
+        populateQueue(availableColors)
         color = VBGame.Colors.grey
     End Sub
 
@@ -58,23 +58,23 @@ Public Class Player
         VBGame.Assets.sounds("shoot").play()
     End Sub
 
-    Public Sub populateQueue()
+    Public Sub populateQueue(availableColors As List(Of Integer))
         While queue.Count < maxQueue
-            addToQueue()
+            addToQueue(availableColors)
         End While
-        If random.Next(1, 50) = 1 Then
+        If random.Next(1, 8) = 1 Then
             Dim n As Integer = random.Next(1, 3) 'Improve this later when you figure out how.
             Select Case n
                 Case 1
-                    queue.Add(New BubbleBlackHole(x - radius, y - radius, 0, radius))
+                    queue.Add(New BubbleBlackHole(x - radius, y - radius, 0, radius, availableColors))
                 Case 2
-                    queue.Add(New BubbleLightning(x - radius, y - radius, 0, radius))
+                    queue.Add(New BubbleLightning(x - radius, y - radius, 0, radius, availableColors))
             End Select
         End If
     End Sub
 
-    Public Sub addToQueue()
-        queue.Add(New Bubble(x - radius, y - radius, 0, radius))
+    Public Sub addToQueue(availableColors As List(Of Integer))
+        queue.Add(New Bubble(x - radius, y - radius, 0, radius, availableColors))
     End Sub
 
     Public Sub handleMouseControls(e As VBGame.MouseEvent, bubbles As List(Of Bubble), updateList As List(Of Cell))

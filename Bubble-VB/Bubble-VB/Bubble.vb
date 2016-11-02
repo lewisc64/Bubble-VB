@@ -15,10 +15,12 @@
 
     Public popped As Boolean
 
+    Public Shadows color As Integer
+
     Public scale As Single = 4 / 5
     Private oscale As Single = 4 / 5
 
-    Public Sub New(x As Integer, y As Integer, angle As Integer, radius As Integer)
+    Public Sub New(x As Integer, y As Integer, angle As Integer, radius As Integer, availableColors As List(Of Integer))
         Me.radius = radius
         realRadius = radius * scale
         Me.x = x
@@ -27,10 +29,11 @@
         width = radius * 2
         height = radius * 2
         moving = True
-        Dim c As Integer = random.Next(0, images.Count)
-        image = images(c)
-        color = color.FromArgb(c)
+
+        color = availableColors(random.Next(0, availableColors.Count))
+        image = images(color)
         speed = 10
+
         scaledImage = VBGame.Images.resizeImage(image, scale, False)
     End Sub
 

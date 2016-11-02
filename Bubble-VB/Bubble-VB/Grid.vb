@@ -15,6 +15,9 @@
     Private rbubbles As Array
     Public radius As Integer
 
+    Public colorsPresent As List(Of Integer)
+    Public finalColor As Integer = 5
+
     Public lost As Boolean = False
 
     Public Property bubbles As Array
@@ -125,7 +128,8 @@
 
     Public maxRows As Integer
 
-    Public Sub New(size As Size, radius As Integer, startHeight As Integer)
+    Public Sub New(size As Size, radius As Integer, startHeight As Integer, availableColors As List(Of Integer))
+        Me.colorsPresent = availableColors
         Me.radius = radius
         bounds = New Size(size.Width * radius * 2 + radius, size.Height * radius * 2)
         width = size.Width
@@ -135,7 +139,7 @@
         For x As Integer = 0 To width - 1
             For y As Integer = 0 To height - 1
                 If y < startHeight Then
-                    rbubbles(x, y) = New Cell(New Bubble(0, 0, 0, radius), x * radius * 2, y * radius * 2, x, y, radius)
+                    rbubbles(x, y) = New Cell(New Bubble(0, 0, 0, radius, colorsPresent), x * radius * 2, y * radius * 2, x, y, radius)
                 Else
                     rbubbles(x, y) = New Cell(Nothing, x * radius * 2, y * radius * 2, x, y, radius)
                 End If
@@ -205,12 +209,26 @@
         Next
     End Sub
 
-    Public Sub update()
+    Public Sub findColors()
+        colorsPresent.Clear()
+        For x As Integer = 0 To width - 1
+            For y As Integer = 0 To height - 1
+                If rbubbles(x, y).hasBubble AndAlso Not colorsPresent.Contains(rbubbles(x, y).Bubble.color) Then
+                    colorsPresent.Add(rbubbles(x, y).Bubble.color)
+                End If
+            Next
+        Next
+    End Sub
+
+    Public Sub update(Optional checkColors As Boolean = True)
         calculateExposed()
         For Each Cell As Cell In getIslands()
             exposed.Remove(Cell)
             Cell.pop(Me)
         Next
+        If checkColors AndAlso exposed.Count > 0 Then
+            findColors()
+        End If
         checkLose()
     End Sub
 
@@ -219,13 +237,13 @@
             For x As Integer = 0 To width - 1
                 rbubbles(x, y + 1).Bubble = rbubbles(x, y).Bubble
                 If y = 0 Then
-                    rbubbles(x, y).Bubble = New Bubble(0, 0, 0, radius)
+                    rbubbles(x, y).Bubble = New Bubble(0, 0, 0, radius, colorsPresent)
                 Else
                     rbubbles(x, y).Bubble = Nothing
                 End If
             Next
         Next
-        update()
+        update(False)
         VBGame.Assets.sounds("advance").play()
     End Sub
 
@@ -245,7 +263,7 @@
         Dim lcell As Cell = unoccupied(lowestIndex)
         Dim group As List(Of Cell) = getColorGroup(lcell.ix, lcell.iy)
         If group.Count >= minPopSize Then
-            player.addToQueue()
+            player.addToQueue(colorsPresent)
             For Each cell As Cell In group
                 cell.pop(Me)
             Next

@@ -1,8 +1,8 @@
 ﻿Public Class BubbleLightning
     Inherits Bubble
 
-    Public Sub New(x As Integer, y As Integer, angle As Integer, radius As Integer)
-        MyBase.New(x, y, angle, radius)
+    Public Sub New(x As Integer, y As Integer, angle As Integer, radius As Integer, availableColors As List(Of Integer))
+        MyBase.New(x, y, angle, radius, availableColors)
         image = VBGame.Assets.images("bubble_lightning")
         scaledImage = VBGame.Images.resizeImage(image, scale, False)
     End Sub

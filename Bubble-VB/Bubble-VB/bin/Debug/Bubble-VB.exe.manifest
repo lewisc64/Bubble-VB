@@ -43,14 +43,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Bubble-VB.exe" size="68520">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Bubble-VB.exe" size="69544">
       <assemblyIdentity name="Bubble-VB" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>ye0eYwX4gncnN+bOFMvZ4taWPvzyZgr3BljZc0lY3is=</dsig:DigestValue>
+        <dsig:DigestValue>9zs82V1T3Q31/YERVsyYF1a0zdDDK7szlBsH1B3PWRw=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
