@@ -190,16 +190,16 @@ Public Class Form1
                 '    grid.update()
                 'End If
 
-                If e.button = VBGame.MouseEvent.buttons.right And e.action = VBGame.MouseEvent.actions.up Then
-                    For Each Cell As Cell In grid.bubbles
-                        If Cell.hasBubble Then
-                            If Cell.Bubble.color = 0 Then
-                                Cell.pop(grid)
-                            End If
-                        End If
-                    Next
-                    grid.update()
-                End If
+                'If e.button = VBGame.MouseEvent.buttons.right And e.action = VBGame.MouseEvent.actions.up Then
+                '    For Each Cell As Cell In grid.bubbles
+                '        If Cell.hasBubble Then
+                '            If Cell.Bubble.color = 0 Then
+                '                Cell.pop(grid)
+                '            End If
+                '        End If
+                '    Next
+                '    grid.update()
+                'End If
 
             Next
 
