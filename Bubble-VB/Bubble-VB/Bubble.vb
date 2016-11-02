@@ -34,7 +34,10 @@
         scaledImage = VBGame.Images.resizeImage(image, scale, False)
     End Sub
 
-    Public Shadows Sub draw(Display As VBGame.Display)
+    Public Overridable Sub onFire()
+    End Sub
+
+    Public Overridable Shadows Sub draw(Display As VBGame.Display)
         'Display.drawCircle(New VBGame.Circle(getCenter(), realRadius), VBGame.Colors.black)
         If scale = oscale Then
             Display.blitCentered(scaledImage, getCenter())
@@ -44,7 +47,7 @@
 
     End Sub
 
-    Public Function handle(ByRef grid As Grid, player As Player)
+    Public Overridable Function handle(ByRef grid As Grid, player As Player)
         move(True)
         If keepInBounds(New Rectangle(New Point(0, 0), grid.bounds), True, True) Then
             VBGame.Assets.sounds("bounce").play(False, True)

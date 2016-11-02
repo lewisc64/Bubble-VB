@@ -1,16 +1,21 @@
-﻿Public Class Player
+﻿Imports System.Runtime.Serialization
+
+Public Class Player
     Inherits VBGame.Sprite
 
     Public queue As New List(Of Bubble)
+
+    Public Shared specialBubbles As New List(Of Type)
 
     Public ready As Boolean = True
 
     Private angleMin As Integer = 185
     Private angleMax As Integer = 355
 
-    Public maxQueue As Integer = 5
+    Public maxQueue As Integer = 3
 
     Public radius As Integer
+    Private Shared random As New Random
 
     Public Sub New(bounds As Size, radius As Integer)
         Me.radius = radius
@@ -49,6 +54,7 @@
         bubble.angle = angle
         bubbles.Add(bubble)
         queue.RemoveAt(0)
+        bubble.onFire()
         VBGame.Assets.sounds("shoot").play()
     End Sub
 
@@ -56,6 +62,15 @@
         While queue.Count < maxQueue
             addToQueue()
         End While
+        If random.Next(1, 1) = 1 Then
+            Dim n As Integer = random.Next(2, 3) 'Improve this later when you figure out how.
+            Select Case n
+                Case 1
+                    queue.Add(New BubbleBlackHole(x - radius, y - radius, 0, radius))
+                Case 2
+                    queue.Add(New BubbleLightning(x - radius, y - radius, 0, radius))
+            End Select
+        End If
     End Sub
 
     Public Sub addToQueue()

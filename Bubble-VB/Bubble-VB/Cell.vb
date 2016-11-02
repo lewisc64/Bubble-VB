@@ -61,13 +61,19 @@
     End Sub
 
     Public Sub pop(grid As Grid, Optional addToUpdateList As Boolean = True)
-        grid.score += 10
-        Bubble.popped = True
-        If addToUpdateList Then
-            grid.updateList.Add(Me)
+        If hasBubble Then
+            grid.score += 10
+            Bubble.popped = True
+            If addToUpdateList Then
+                grid.updateList.Add(Me)
+            End If
+            VBGame.Assets.sounds("pop").play()
         End If
-        VBGame.Assets.sounds("pop").play()
     End Sub
+
+    Public Function getIXIY()
+        Return New Point(ix, iy)
+    End Function
 
     Public Sub New(bubble As Bubble, x As Integer, y As Integer, ix As Integer, iy As Integer, radius As Integer)
         Me.radius = radius

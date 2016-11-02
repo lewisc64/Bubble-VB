@@ -115,6 +115,14 @@
         Return neighbors
     End Function
 
+    Public Function getAbove(x As Integer, y As Integer)
+        Dim above As New List(Of Cell)
+        For iy As Integer = y - 1 To 0 Step -1
+            above.Add(rbubbles(x, iy))
+        Next
+        Return above
+    End Function
+
     Public maxRows As Integer
 
     Public Sub New(size As Size, radius As Integer, startHeight As Integer)

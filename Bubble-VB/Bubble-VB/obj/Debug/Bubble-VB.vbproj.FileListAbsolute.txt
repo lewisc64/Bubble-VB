@@ -8,3 +8,7 @@ E:\coding\GitHub\Bubble-VB\Bubble-VB\Bubble-VB\obj\Debug\Bubble-VB.vbproj.Genera
 E:\coding\GitHub\Bubble-VB\Bubble-VB\Bubble-VB\obj\Debug\Bubble-VB.exe
 E:\coding\GitHub\Bubble-VB\Bubble-VB\Bubble-VB\obj\Debug\Bubble-VB.xml
 E:\coding\GitHub\Bubble-VB\Bubble-VB\Bubble-VB\obj\Debug\Bubble-VB.pdb
+E:\coding\GitHub\Bubble-VB\Bubble-VB\Bubble-VB\bin\Debug\Bubble-VB.exe.manifest
+E:\coding\GitHub\Bubble-VB\Bubble-VB\Bubble-VB\bin\Debug\Bubble-VB.application
+E:\coding\GitHub\Bubble-VB\Bubble-VB\Bubble-VB\obj\Debug\Bubble-VB.exe.manifest
+E:\coding\GitHub\Bubble-VB\Bubble-VB\Bubble-VB\obj\Debug\Bubble-VB.application

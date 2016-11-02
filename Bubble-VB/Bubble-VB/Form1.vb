@@ -36,11 +36,18 @@ Public Class Form1
         VBGame.Assets.sounds.Add("advance", New VBGame.Sound("assets/sounds/advance.mp3"))
         VBGame.Assets.sounds.Add("music", New VBGame.Sound("assets/sounds/music/Marty_Gots_a_Plan.mp3"))
         VBGame.Assets.sounds.Add("victory", New VBGame.Sound("assets/sounds/music/victory.mp3"))
+        VBGame.Assets.sounds.Add("special_bounce", New VBGame.Sound("assets/sounds/special_bounce.mp3"))
+        VBGame.Assets.sounds.Add("black_hole", New VBGame.Sound("assets/sounds/black_hole.mp3"))
+        VBGame.Assets.sounds.Add("lightning", New VBGame.Sound("assets/sounds/lightning.mp3"))
 
         VBGame.Assets.images.Add("bg", VBGame.Images.load("assets/images/bg.png"))
         VBGame.Assets.images.Add("sidebar", VBGame.Images.load("assets/images/sidebar.png"))
         VBGame.Assets.images.Add("star", VBGame.Images.load("assets/images/star.png"))
         VBGame.Assets.images.Add("bg_gold", VBGame.Images.load("assets/images/bg_gold.png"))
+        VBGame.Assets.images.Add("bubble_black_hole", VBGame.Images.load("assets/images/bubbles/black_hole.png"))
+        VBGame.Assets.images.Add("bubble_lightning", VBGame.Images.load("assets/images/bubbles/lightning.png"))
+
+        Player.specialBubbles.Add(GetType(BubbleBlackHole))
 
         Me.Icon = New Icon("assets/images/icon.ico")
 
@@ -125,7 +132,7 @@ Public Class Form1
 
         Dim bubbles As New List(Of Bubble)
 
-        Dim toCheck As New List(Of Cell)
+        Dim gridChanged As Boolean = False
 
         Dim startingRows As Integer = 11
 
@@ -166,18 +173,23 @@ Public Class Form1
             Next
 
             For Each Cell As Cell In grid.updateList.ToList()
-                Cell.Bubble.draw(display)
-                Cell.Bubble.scale -= 0.1
-                If Cell.Bubble.scale <= 0.1 Then
-                    Cell.Bubble = Nothing
+                If Not IsNothing(Cell.Bubble) Then
+                    Cell.Bubble.draw(display)
+                    Cell.Bubble.scale -= 0.1
+                    If Cell.Bubble.scale <= 0.1 Then
+                        grid.updateList.Remove(Cell)
+                        Cell.Bubble = Nothing
+                        gridChanged = True
+                    End If
+                Else
+                    MsgBox("Empty cell in update list. This should never happen.")
                     grid.updateList.Remove(Cell)
-                    toCheck.AddRange(grid.getNeighbors(Cell.ix, Cell.iy))
                 End If
             Next
 
-            If toCheck.Count <> 0 AndAlso grid.updateList.Count = 0 Then
+            If gridChanged AndAlso grid.updateList.Count = 0 Then
+                gridChanged = False
                 grid.update()
-                toCheck.Clear()
             End If
 
             grid.draw(display)
@@ -222,6 +234,10 @@ Public Class Form1
             End If
 
             If rowsToAdd > 0 AndAlso frames Mod 2 = 0 Then
+                For Each Cell As Cell In grid.updateList.ToList()
+                    Cell.Bubble = Nothing
+                    grid.updateList.Remove(Cell)
+                Next
                 grid.addRow()
                 rowsToAdd -= 1
             End If
