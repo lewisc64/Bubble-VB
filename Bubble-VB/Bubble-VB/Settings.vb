@@ -4,6 +4,8 @@
 
     Public gamesWon As Integer = 0
 
+    Public theme As String = "standard"
+
     Public Sub New()
     End Sub
 

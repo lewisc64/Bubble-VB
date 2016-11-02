@@ -62,8 +62,8 @@ Public Class Player
         While queue.Count < maxQueue
             addToQueue()
         End While
-        If random.Next(1, 1) = 1 Then
-            Dim n As Integer = random.Next(2, 3) 'Improve this later when you figure out how.
+        If random.Next(1, 50) = 1 Then
+            Dim n As Integer = random.Next(1, 3) 'Improve this later when you figure out how.
             Select Case n
                 Case 1
                     queue.Add(New BubbleBlackHole(x - radius, y - radius, 0, radius))

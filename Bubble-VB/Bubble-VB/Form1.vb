@@ -13,6 +13,14 @@ Public Class Form1
     Public thread As New Thread(AddressOf mainloop)
     Public settings As New Settings
 
+    Public Sub loadImage(key As String, relpath As String)
+        Try
+            VBGame.Assets.images.Add(key, VBGame.Images.load("assets/images/" & settings.theme & "/" & relpath))
+        Catch ex As Exception
+            VBGame.Assets.images.Add(key, VBGame.Images.load("assets/images/standard/" & relpath))
+        End Try
+    End Sub
+
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         settings = New Settings()
@@ -22,12 +30,24 @@ Public Class Form1
             VBGame.XMLIO.Read("Settings.xml", settings)
         End If
 
-        Bubble.images.Add(VBGame.Images.load("assets/images/bubbles/red.png"))
-        Bubble.images.Add(VBGame.Images.load("assets/images/bubbles/yellow.png"))
-        Bubble.images.Add(VBGame.Images.load("assets/images/bubbles/purple.png"))
-        Bubble.images.Add(VBGame.Images.load("assets/images/bubbles/blue.png"))
-        Bubble.images.Add(VBGame.Images.load("assets/images/bubbles/green.png"))
-        Bubble.images.Add(VBGame.Images.load("assets/images/bubbles/cyan.png"))
+        Dim month As Integer = Today.Month
+        If month = 12 Then
+            settings.theme = "christmas"
+        Else
+            settings.theme = "standard"
+        End If
+
+        Try
+            Bubble.images.Add(VBGame.Images.load("assets/images/" & settings.theme & "/bubbles/red.png"))
+            Bubble.images.Add(VBGame.Images.load("assets/images/" & settings.theme & "/bubbles/yellow.png"))
+            Bubble.images.Add(VBGame.Images.load("assets/images/" & settings.theme & "/bubbles/purple.png"))
+            Bubble.images.Add(VBGame.Images.load("assets/images/" & settings.theme & "/bubbles/blue.png"))
+            Bubble.images.Add(VBGame.Images.load("assets/images/" & settings.theme & "/bubbles/green.png"))
+            Bubble.images.Add(VBGame.Images.load("assets/images/" & settings.theme & "/bubbles/cyan.png"))
+        Catch
+            MsgBox("Can't find bubble textures in current theme.")
+            End
+        End Try
 
         VBGame.Assets.sounds.Add("shoot", New VBGame.Sound("assets/sounds/shoot.mp3"))
         VBGame.Assets.sounds.Add("pop", New VBGame.Sound("assets/sounds/pop.mp3"))
@@ -40,12 +60,12 @@ Public Class Form1
         VBGame.Assets.sounds.Add("black_hole", New VBGame.Sound("assets/sounds/black_hole.mp3"))
         VBGame.Assets.sounds.Add("lightning", New VBGame.Sound("assets/sounds/lightning.mp3"))
 
-        VBGame.Assets.images.Add("bg", VBGame.Images.load("assets/images/bg.png"))
-        VBGame.Assets.images.Add("sidebar", VBGame.Images.load("assets/images/sidebar.png"))
-        VBGame.Assets.images.Add("star", VBGame.Images.load("assets/images/star.png"))
-        VBGame.Assets.images.Add("bg_gold", VBGame.Images.load("assets/images/bg_gold.png"))
-        VBGame.Assets.images.Add("bubble_black_hole", VBGame.Images.load("assets/images/bubbles/black_hole.png"))
-        VBGame.Assets.images.Add("bubble_lightning", VBGame.Images.load("assets/images/bubbles/lightning.png"))
+        loadImage("bg", "bg.png")
+        loadImage("sidebar", "sidebar.png")
+        loadImage("star", "star.png")
+        loadImage("bg_gold", "bg_gold.png")
+        loadImage("bubble_black_hole", "bubbles/black_hole.png")
+        loadImage("bubble_lightning", "bubbles/lightning.png")
 
         Player.specialBubbles.Add(GetType(BubbleBlackHole))
 
