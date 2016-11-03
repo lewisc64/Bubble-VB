@@ -30,11 +30,13 @@ Public Class Form1
             VBGame.XMLIO.Read("Settings.xml", settings)
         End If
 
-        Dim month As Integer = Today.Month
-        If month = 12 Then
-            settings.theme = "christmas"
-        Else
-            settings.theme = "standard"
+        If settings.setOnSeason Then
+            Dim month As Integer = Today.Month
+            If month = 12 Then
+                settings.theme = "christmas"
+            Else
+                settings.theme = "standard"
+            End If
         End If
 
         Try
@@ -185,7 +187,7 @@ Public Class Form1
 
                 'If e.button = VBGame.MouseEvent.buttons.right And e.action = VBGame.MouseEvent.actions.up Then
                 '    For Each Cell As Cell In grid.bubbles
-                '        Cell.Bubble = Nothing
+                '        Cell.pop(grid)
                 '    Next
                 '    grid.update()
                 'End If
@@ -199,6 +201,18 @@ Public Class Form1
                 '        End If
                 '    Next
                 '    grid.update()
+                'End If
+
+                'If e.button = VBGame.MouseEvent.buttons.right And e.action = VBGame.MouseEvent.actions.up Then
+                '    For Each Cell As Cell In grid.bubbles
+                '        If Cell.hasBubble Then
+                '            If Cell.Bubble.color = grid.colorsPresent(0) Then
+                '                Cell.pop(grid)
+                '            End If
+                '        End If
+                '    Next
+                '    grid.update()
+                '    player.queue.Clear()
                 'End If
 
             Next
@@ -245,7 +259,8 @@ Public Class Form1
             'Next
 
             If player.queue.Count = 0 AndAlso bubbles.Count = 0 Then
-                rowsToAdd = 1
+                rowsToAdd = Math.Min(Math.Max((grid.originalColorsPresent.Count - grid.colorsPresent.Count) * 2, 1), 19)
+                grid.findColors()
                 player.populateQueue(grid.colorsPresent)
             End If
 
@@ -254,15 +269,15 @@ Public Class Form1
             End If
 
             If grid.exposed.Count = 0 AndAlso frames > 10 Then
-                grid.colorsPresent = New List(Of Integer) From {0, 1, 2, 3, 4, 5}
+                'grid.colorsPresent = New List(Of Integer) From {0, 1, 2, 3, 4, 5}
                 VBGame.Assets.sounds("victory").play()
                 settings.gamesWon += 1
                 settings.Save()
                 background = getBackground(True)
                 grid.won = True
-                grid.score += 100000
-                grid.addRow()
-                rowsToAdd = startingRows - 1
+                background.update()
+                display.update()
+                Return grid
             End If
 
             If rowsToAdd > 0 AndAlso frames Mod 2 = 0 Then
@@ -272,6 +287,8 @@ Public Class Form1
                 Next
                 grid.addRow()
                 rowsToAdd -= 1
+                If rowsToAdd = 0 Then
+                End If
             End If
 
             reset.draw()

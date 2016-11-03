@@ -16,6 +16,7 @@
     Public radius As Integer
 
     Public colorsPresent As List(Of Integer)
+    Public originalColorsPresent As List(Of Integer)
     Public finalColor As Integer = 5
 
     Public lost As Boolean = False
@@ -130,6 +131,7 @@
 
     Public Sub New(size As Size, radius As Integer, startHeight As Integer, availableColors As List(Of Integer))
         Me.colorsPresent = availableColors
+        Me.originalColorsPresent = availableColors.ToList()
         Me.radius = radius
         bounds = New Size(size.Width * radius * 2 + radius, size.Height * radius * 2)
         width = size.Width

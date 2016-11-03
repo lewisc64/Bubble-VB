@@ -6,6 +6,8 @@
 
     Public theme As String = "standard"
 
+    Public setOnSeason As Boolean = True
+
     Public Sub New()
     End Sub
 
@@ -57,7 +59,11 @@
 
         Dim pscore As Score
 
-        MsgBox("Game Over." & vbCrLf & "Score: " & CStr(grid.score))
+        If grid.won Then
+            MsgBox("You Win!" & vbCrLf & "Score: " & CStr(grid.score))
+        Else
+            MsgBox("Game Over." & vbCrLf & "Score: " & CStr(grid.score))
+        End If
 
         If highscore Then
             pscore = New Score()
